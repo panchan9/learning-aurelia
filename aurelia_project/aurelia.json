@@ -29,6 +29,7 @@
     "fileExtension": ".scss",
     "source": "src/**/*.scss"
   },
+  "packageManager": "npm",
   "editor": {
     "id": "vscode",
     "displayName": "Visual Studio Code"

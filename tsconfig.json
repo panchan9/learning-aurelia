@@ -5,7 +5,14 @@
     "target": "es5",
     "module": "amd",
     "declaration": false,
-    "noImplicitAny": false,
+    // strict
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    // strict
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
