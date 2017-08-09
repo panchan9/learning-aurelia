@@ -26,3 +26,4 @@ package-lock.json
 
 # Compiled files
 scripts
+src/environment.ts
