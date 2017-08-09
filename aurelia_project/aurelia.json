@@ -155,7 +155,8 @@
             "main": "i18nextXHRBackend",
             "path": "../node_modules/i18next-xhr-backend",
             "resources": []
-          }
+          },
+          "aurelia-fetch-client"
         ]
       }
     ]
