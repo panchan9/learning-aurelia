@@ -13,7 +13,7 @@ export class LocalePickerCustomElement {
     // this.selectedLocale = this.i18n.getLocale();
   }
 
-  private selectedLocaleChanged() {
+  selectedLocaleChanged(): void {
     this.isChangingLocale = true;
     this.i18n.setLocale(this.selectedLocale).then(() => {
       this.isChangingLocale = false;

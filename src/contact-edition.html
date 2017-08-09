@@ -1,0 +1,174 @@
+<template>
+<section class="container">
+  <h1 if.bind="isNew">${'contacts.newContact' & t}</h1>
+  <h1 if.bind="!isNew">${'contacts.contactId' & t: { id: contact.id }}</h1>
+
+  <form class="form-horizontal" submit.delegate="save()">
+    <div class="form-group">
+      <label class="col-sm-3 control-label">${'contacts.firstName' & t}</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" value.bind="contact.firstName">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">${'contacts.lastName' & t}</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" value.bind="contact.lastName">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">${'contacts.company' & t}</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" value.bind="contact.company">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">${'contacts.birthday' & t}</label>
+      <div class="col-sm-9">
+        <input type="date" class="form-control" value.bind="contact.birthday">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">${'contacts.note' & t}</label>
+      <div class="col-sm-9">
+        <textarea class="form-control" value.bind="contact.note"></textarea>
+      </div>
+    </div>
+
+    <hr>
+    <div class="form-group" repeat.for="phoneNumber of contact.phoneNumbers">
+      <div class="col-sm-2 col-sm-offset-1">
+        <select value.bind="phoneNumber.type" class="form-control">
+          <option repeat.for="type of types.phoneNumber" value.bind="type">${type}</option>
+        </select>
+      </div>
+      <div class="col-sm-8">
+        <input type="tel" class="form-control" placeholder.bind="'contacts.phoneNumber' & t" value.bind="phoneNumber.number">
+      </div>
+      <div class="col-sm-1">
+        <button type="button" class="btn btn-danger" click.delegate="contact.phoneNumbers.splice($index, 1)">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-9 col-sm-offset-3">
+        <button type="button" class="btn btn-primary" click.delegate="contact.addPhoneNumber()">
+          <i class="fa fa-plus-square-o"></i> ${'contacts.addPhoneNumber' & t}
+        </button>
+      </div>
+    </div>
+
+    <hr>
+    <div class="form-group" repeat.for="emailAddress of contact.emailAddresses">
+      <div class="col-sm-2 col-sm-offset-1">
+        <select value.bind="emailAddress.type" class="form-control">
+          <option repeat.for="type of types.emailAddress" value.bind="type">${type}</option>
+        </select>
+      </div>
+      <div class="col-sm-8">
+        <input type="email" class="form-control" placeholder.bind="'contacts.emailAddress' & t" value.bind="emailAddress.address">
+      </div>
+      <div class="col-sm-1">
+        <button type="button" class="btn btn-danger" click.delegate="contact.emailAddresses.splice($index, 1)">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-9 col-sm-offset-3">
+        <button type="button" class="btn btn-primary" click.delegate="contact.addEmailAddress()">
+          <i class="fa fa-plus-square-o"></i> ${'contacts.addEmailAddress' & t}
+        </button>
+      </div>
+    </div>
+
+    <hr>
+    <div class="form-group" repeat.for="address of contact.addresses">
+      <div class="col-sm-2 col-sm-offset-1">
+        <select value.bind="address.type" class="form-control">
+          <option repeat.for="type of types.address" value.bind="type">${type}</option>
+        </select>
+      </div>
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder.bind="'contacts.number' & t" value.bind="address.number">
+          </div>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" placeholder.bind="'contacts.street' & t" value.bind="address.street">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder.bind="'contacts.postalCode' & t" value.bind="address.postalCode">
+          </div>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" placeholder.bind="'contacts.city' & t" value.bind="address.city">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder.bind="'contacts.state' & t" value.bind="address.state">
+          </div>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" placeholder.bind="'contacts.country' & t" value.bind="address.country">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1">
+        <button type="button" class="btn btn-danger" click.delegate="contact.addresses.splice($index, 1)">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-9 col-sm-offset-3">
+        <button type="button" class="btn btn-primary" click.delegate="contact.addAddress()">
+          <i class="fa fa-plus-square-o"></i> ${'contacts.addAddress' & t}
+        </button>
+      </div>
+    </div>
+
+    <hr>
+    <div class="form-group" repeat.for="profile of contact.socialProfiles">
+      <div class="col-sm-2 col-sm-offset-1">
+        <select value.bind="profile.type" class="form-control">
+          <option repeat.for="type of types.socialProfile" value.bind="type">${type}</option>
+        </select>
+      </div>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder.bind="'contacts.username' & t" value.bind="profile.username">
+      </div>
+      <div class="col-sm-1">
+        <button type="button" class="btn btn-danger" click.delegate="contact.socialProfiles.splice($index, 1)">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-9 col-sm-offset-3">
+        <button type="button" class="btn btn-primary" click.delegate="contact.addSocialProfile()">
+          <i class="fa fa-plus-square-o"></i> ${'contacts.addSocialProfile' & t}
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-9 col-sm-offset-3">
+        <button type="submit" class="btn btn-success">${'contacts.save' & t}</button>
+        <a if.bind="isNew" class="btn btn-danger" route-href="route: contacts">
+          ${'contacts.cancel' & t}
+        </a>
+        <a if.bind="!isNew" class="btn btn-danger" route-href="route: contact-details; params.bind: { id: contact.id }">
+          ${'contacts.cancel' & t}
+        </a>
+      </div>
+    </div>
+  </form>
+</section>
+</template>
