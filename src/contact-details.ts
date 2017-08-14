@@ -1,8 +1,9 @@
 import {autoinject} from 'aurelia-framework';
-import {RouteConfig} from 'aurelia-router';
+import {Router, RouteConfig} from 'aurelia-router';
 import {BindingSignaler} from 'aurelia-templating-resources';
+import {I18N} from 'aurelia-i18n';
 import {ContactGateway} from './contact-gateway';
-import {Contact} from './models';
+import {Contact, SocialProfileType} from './models';
 
 type Params = { [index: string]: string };
 
@@ -10,11 +11,14 @@ type Params = { [index: string]: string };
 export class ContactDetails {
 
   contact: Contact;
+  socialProfileType = SocialProfileType;
   rtUpdater: NodeJS.Timer | null;
 
   constructor(
     private gateway: ContactGateway,
-    private signaler: BindingSignaler
+    private router: Router,
+    private signaler: BindingSignaler,
+    private i18n: I18N,
   ) {}
 
   activate(params: Params, config: RouteConfig): Promise<void> {
@@ -33,6 +37,13 @@ export class ContactDetails {
     if (this.rtUpdater) {
       clearInterval(this.rtUpdater);
       this.rtUpdater = null;
+    }
+  }
+
+  tryDelete(): void {
+    if (confirm(this.i18n.tr('contacts.confirmDelete'))) {
+      this.gateway.delete(this.contact.id)
+        .then(() => { this.router.navigateToRoute('contacts'); });
     }
   }
 }

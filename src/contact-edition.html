@@ -4,50 +4,51 @@
   <h1 if.bind="!isNew">${'contacts.contactId' & t: { id: contact.id }}</h1>
 
   <form class="form-horizontal" submit.delegate="save()">
+
     <div class="form-group">
       <label class="col-sm-3 control-label">${'contacts.firstName' & t}</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" value.bind="contact.firstName">
+        <input type="text" class="form-control" value.bind="contact.firstName & validate">
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-sm-3 control-label">${'contacts.lastName' & t}</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" value.bind="contact.lastName">
+        <input type="text" class="form-control" value.bind="contact.lastName & validate">
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-sm-3 control-label">${'contacts.company' & t}</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" value.bind="contact.company">
+        <input type="text" class="form-control" value.bind="contact.company & validate">
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-sm-3 control-label">${'contacts.birthday' & t}</label>
       <div class="col-sm-9">
-        <input type="date" class="form-control" value.bind="contact.birthday">
+        <input type="date" class="form-control" value.bind="contact.birthday & validate">
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-sm-3 control-label">${'contacts.note' & t}</label>
       <div class="col-sm-9">
-        <textarea class="form-control" value.bind="contact.note"></textarea>
+        <textarea class="form-control" value.bind="contact.note & validate"></textarea>
       </div>
     </div>
 
     <hr>
     <div class="form-group" repeat.for="phoneNumber of contact.phoneNumbers">
       <div class="col-sm-2 col-sm-offset-1">
-        <select value.bind="phoneNumber.type" class="form-control">
+        <select value.bind="phoneNumber.type & validate" class="form-control">
           <option repeat.for="type of types.phoneNumber" value.bind="type">${type}</option>
         </select>
       </div>
       <div class="col-sm-8">
-        <input type="tel" class="form-control" placeholder.bind="'contacts.phoneNumber' & t" value.bind="phoneNumber.number">
+        <input type="tel" class="form-control" placeholder.bind="'contacts.phoneNumber' & t" value.bind="phoneNumber.number & validate">
       </div>
       <div class="col-sm-1">
         <button type="button" class="btn btn-danger" click.delegate="contact.phoneNumbers.splice($index, 1)">
@@ -66,12 +67,12 @@
     <hr>
     <div class="form-group" repeat.for="emailAddress of contact.emailAddresses">
       <div class="col-sm-2 col-sm-offset-1">
-        <select value.bind="emailAddress.type" class="form-control">
+        <select value.bind="emailAddress.type & validate" class="form-control">
           <option repeat.for="type of types.emailAddress" value.bind="type">${type}</option>
         </select>
       </div>
       <div class="col-sm-8">
-        <input type="email" class="form-control" placeholder.bind="'contacts.emailAddress' & t" value.bind="emailAddress.address">
+        <input type="email" class="form-control" placeholder.bind="'contacts.emailAddress' & t" value.bind="emailAddress.address & validate">
       </div>
       <div class="col-sm-1">
         <button type="button" class="btn btn-danger" click.delegate="contact.emailAddresses.splice($index, 1)">
@@ -90,33 +91,33 @@
     <hr>
     <div class="form-group" repeat.for="address of contact.addresses">
       <div class="col-sm-2 col-sm-offset-1">
-        <select value.bind="address.type" class="form-control">
+        <select value.bind="address.type & validate" class="form-control">
           <option repeat.for="type of types.address" value.bind="type">${type}</option>
         </select>
       </div>
       <div class="col-sm-8">
         <div class="row">
           <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder.bind="'contacts.number' & t" value.bind="address.number">
+            <input type="text" class="form-control" placeholder.bind="'contacts.number' & t" value.bind="address.number & validate">
           </div>
           <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder.bind="'contacts.street' & t" value.bind="address.street">
+            <input type="text" class="form-control" placeholder.bind="'contacts.street' & t" value.bind="address.street & validate">
           </div>
         </div>
         <div class="row">
           <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder.bind="'contacts.postalCode' & t" value.bind="address.postalCode">
+            <input type="text" class="form-control" placeholder.bind="'contacts.postalCode' & t" value.bind="address.postalCode & validate">
           </div>
           <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder.bind="'contacts.city' & t" value.bind="address.city">
+            <input type="text" class="form-control" placeholder.bind="'contacts.city' & t" value.bind="address.city & validate">
           </div>
         </div>
         <div class="row">
           <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder.bind="'contacts.state' & t" value.bind="address.state">
+            <input type="text" class="form-control" placeholder.bind="'contacts.state' & t" value.bind="address.state & validate">
           </div>
           <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder.bind="'contacts.country' & t" value.bind="address.country">
+            <input type="text" class="form-control" placeholder.bind="'contacts.country' & t" value.bind="address.country & validate">
           </div>
         </div>
       </div>
@@ -137,12 +138,12 @@
     <hr>
     <div class="form-group" repeat.for="profile of contact.socialProfiles">
       <div class="col-sm-2 col-sm-offset-1">
-        <select value.bind="profile.type" class="form-control">
+        <select value.bind="profile.type & validate" class="form-control">
           <option repeat.for="type of types.socialProfile" value.bind="type">${type}</option>
         </select>
       </div>
       <div class="col-sm-8">
-        <input type="text" class="form-control" placeholder.bind="'contacts.username' & t" value.bind="profile.username">
+        <input type="text" class="form-control" placeholder.bind="'contacts.username' & t" value.bind="profile.username & validate">
       </div>
       <div class="col-sm-1">
         <button type="button" class="btn btn-danger" click.delegate="contact.socialProfiles.splice($index, 1)">
