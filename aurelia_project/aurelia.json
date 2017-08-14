@@ -156,7 +156,13 @@
             "path": "../node_modules/i18next-xhr-backend",
             "resources": []
           },
-          "aurelia-fetch-client"
+          "aurelia-fetch-client",
+          {
+            "name": "aurelia-validation",
+            "main": "aurelia-validation",
+            "path": "../node_modules/aurelia-validation/dist/amd",
+            "resources": []
+          }
         ]
       }
     ]

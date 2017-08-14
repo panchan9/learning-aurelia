@@ -1,11 +1,19 @@
 {
   "rules": {
+    // TypeScript-specific
+
+    // Functionality
+    "triple-equals": true,
+    // "no-unused-expression": true,
+    "no-floating-promise": true,
+
+    // Style
+    "allow-return-shorthand": true,
     "semicolon": [ true, "always" ],
     "class-name": true,
     "quotemark": [
       true,
       "single"
-    ],
-    "triple-equals": true
+    ]
   }
 }
