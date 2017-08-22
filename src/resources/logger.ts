@@ -1,6 +1,7 @@
 import {LogManager} from 'aurelia-framework';
+import {Logger} from 'aurelia-logging';
 
-export const log = LogManager.getLogger('app');
+export const log: Logger = LogManager.getLogger('app');
 
 export function cn(instance: any): void {
   if (!instance) {

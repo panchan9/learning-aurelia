@@ -1,0 +1,20 @@
+<template>
+<require from="./contact-form.html"></require>
+<section class="container">
+  <h1>${'contacts.new' & t}</h1>
+
+  <form class="form-horizontal" submit-task.call="save()">
+
+    <contact-form contact.bind="contact"></contact-form>
+
+    <div class="form-group">
+      <div class="col-sm-9 col-sm-offset-3">
+        <submit-button disabled.bind="validationController.errors.length > 0">
+          ${'contacts.save' & t}
+        </submit-button>
+        <a class="btn btn-danger" router-href="route: contacts">${'contacts.cancel' & t}</a>
+      </div>
+    </div>
+  </form>
+</section>
+</template>

@@ -1,12 +1,20 @@
 <template>
+<require from="./resources/attributes/blob-src"></require>
+<require from="./resources/elements/file-picker"></require>
+
 <section class="container">
   <h1>${contact.fullName}</h1>
 
   <form class="form-horizontal" submit.delegate="save()">
     <div class="form-group">
       <label for="photo" class="col-sm-3 control-label">${'contacts.photo' & t}</label>
-      <div class="col-sm-9">
-        <input type="file" id="photo" accept="image/*" files.bind="photo & validate">
+      <div class="col-sm-6">
+        <file-picker input-id="photo" accept="image/*" files.bind="photo & validate" class="thumbnail" multiple.bind="true">
+          <strong hide.bind="preview">
+            ${'contacts.pickPhoto' & t}
+          </strong>
+          <img alt="preview" show.bind="preview" blob-src.bind="preview">
+        </file-picker>
       </div>
     </div>
 

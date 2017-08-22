@@ -30,7 +30,7 @@ export class ContactGateway {
   }
 
   create(contact: Contact) {
-    log.debug(contact);
+    log.debug('contact:', contact);
     return this.httpClient.fetch('contacts',
       { method: 'POST', body: json(contact) });
   }

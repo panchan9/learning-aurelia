@@ -1,17 +1,20 @@
 import {log, cn} from '../logger';
 
-interface StringMap {
-  [index: string]: string;
+type TargetItem = { [property: string]: string };
+
+export interface Group {
+  key: string;
+  items: TargetItem[];
 }
 
 export class GroupByValueConverter {
-  toView(array: StringMap[], property: string) {
+  toView(array: TargetItem[], property: string): Group[] {
     cn(this);
     const groups = new Map();
     for (const item of array) {
       const key = item[property];
       log.debug('key: ', key);
-      let group: { key: string, items: StringMap[] } = groups.get(key);
+      let group: Group = groups.get(key);
 
       if (!group) {
         group = { key, items: []};

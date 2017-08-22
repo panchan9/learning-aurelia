@@ -36,13 +36,6 @@ export enum SocialProfileType {
   TWITTER = 'Twitter',
 }
 
-export const types = {
-  phoneNumber: Object.values(PhoneNumberType),
-  emailAddress: Object.values(EmailAddressType),
-  address: Object.values(AddressType),
-  socialProfile: Object.values(SocialProfileType),
-};
-
 export class PhoneNumber {
 
   type: PhoneNumberType = PhoneNumberType.HOME;
@@ -52,7 +45,7 @@ export class PhoneNumber {
     ValidationRules
       .ensure('type')
         .required()
-        .satisfies(value => Object.values(PhoneNumberType).indexOf(value) >= 0)
+        .satisfies(value => this.types.indexOf(value) >= 0)
       .ensure('number')
         .required()
         .maxLength(25)
@@ -61,6 +54,10 @@ export class PhoneNumber {
 
   static fromObject(src: PhoneNumber): PhoneNumber {
     return Object.assign(new PhoneNumber(), src);
+  }
+
+  get types() {
+    return Object.values(PhoneNumberType);
   }
 }
 
@@ -73,7 +70,7 @@ export class EmailAddress {
     ValidationRules
       .ensure('type')
         .required()
-        .satisfies(value => Object.values(EmailAddressType).indexOf(value) >= 0)
+        .satisfies(value => this.types.indexOf(value) >= 0)
       .ensure('address')
         .required()
         .maxLength(250)
@@ -83,6 +80,10 @@ export class EmailAddress {
 
   static fromObject(src: EmailAddress) {
     return Object.assign(new EmailAddress(), src);
+  }
+
+  get types() {
+    return Object.values(EmailAddressType);
   }
 }
 
@@ -100,7 +101,7 @@ export class Address {
     ValidationRules
       .ensure('type')
         .required()
-        .satisfies(value => Object.values(AddressType).indexOf(value) >= 0)
+        .satisfies(value => this.types.indexOf(value) >= 0)
       .ensure('number')
         .required()
         .maxLength(100)
@@ -125,6 +126,10 @@ export class Address {
   static fromObject(src: Address) {
     return Object.assign(new Address, src);
   }
+
+  get types() {
+    return Object.values(AddressType);
+  }
 }
 
 export class SocialProfile {
@@ -136,7 +141,7 @@ export class SocialProfile {
     ValidationRules
       .ensure('type')
         .required()
-        .satisfies(value => Object.values(SocialProfileType).indexOf(value) >= 0)
+        .satisfies(value => this.types.indexOf(value) >= 0)
       .ensure('username')
         .required()
         .maxLength(100)
@@ -145,6 +150,10 @@ export class SocialProfile {
 
   static fromObject(src: SocialProfile) {
     return Object.assign(new SocialProfile, src);
+  }
+
+  get types() {
+    return Object.values(SocialProfileType);
   }
 }
 
@@ -220,5 +229,9 @@ export class Contact implements ContactSrc {
 
   addSocialProfile(): void {
     this.socialProfiles.push(new SocialProfile());
+  }
+
+  toString(): string {
+    return this.fullName;
   }
 }

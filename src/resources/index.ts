@@ -5,5 +5,10 @@ export function configure(config: FrameworkConfiguration) {
     './value-converters/order-by',
     './value-converters/group-by',
     './value-converters/filter-by',
+
+    './attributes/submit-task',
+
+    './elements/group-list.html',
+    './elements/submit-button.html',
   ]);
 }

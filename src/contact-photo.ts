@@ -37,6 +37,16 @@ export class ContactPhoto {
         .satisfiesRule('maxFileSize', 2)
         .satisfiesRule('fileExtension', ['.jpg', '.png'])
       .on(this);
+    log.debug('validation.controller', this.validationController);
+  }
+
+  get areFilesValid() {
+    return this.validationController.errors.length === 0;
+  }
+
+  get preview() {
+    return this.photo && this.photo.length > 0 && this.areFilesValid
+      ? this.photo.item(0) : null;
   }
 
   activate(params: Params, config: RouteConfig) {
@@ -46,15 +56,15 @@ export class ContactPhoto {
     });
   }
 
-  save(): void {
-    this.validationController.validate().then(validationResult => {
-      log.debug('validationResult:', validationResult);
-      if (!validationResult.valid) return;
+  isValid() {
+    return this.validationController.validate().then(validationResult => validationResult.valid);
+  }
+  save() {
+    if (!this.isValid()) return;
 
-      this.gateway.updatePhoto(this.contact.id, this.photo.item(0))
-        .then(() => {
-          this.router.navigateToRoute('contact-details', { id: this.contact.id });
-        });
-    });
+    return this.gateway.updatePhoto(this.contact.id, this.photo.item(0))
+      .then(() => {
+        this.router.navigateToRoute('contact-details', { id: this.contact.id });
+      });
   }
 }

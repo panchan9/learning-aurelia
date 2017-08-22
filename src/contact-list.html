@@ -22,27 +22,21 @@
     </div>
   </div>
 
-  <div repeat.for="group of contacts
-                  | filterBy : filter : 'firstName' : 'lastName' : 'company'
-                  | groupBy : 'firstLetter'
-                  | orderBy : 'key'"
-       class="panel panel-default">
-    <div class="panel-heading">
-      ${group.key}
-    </div>
-    <ul class="list-group">
-      <li repeat.for="contact of group.items | orderBy: 'fullName'"
-          class="list-group-item">
-        <a route-href="route: contact-details; params.bind: { id: contact.id }">
-          <span if.bind="contact.isPerson">
-            ${contact.firstName} <strong>${contact.lastName}</strong>
-          </span>
-          <span if.bind="!contact.isPerson">
-            <strong>${contact.company}</strong>
-          </span>
-        </a>
-      </li>
-    </ul>
-  </div>
+  <group-list items.bind="contacts | filterBy: filter
+                                             : 'firstName': 'lastname' : 'company'"
+              group-by="firstLetter"
+              order-by="fullName">
+    <template replace-part="item">
+      <a route-href="route: contact-details; params.bind: { id: id }">
+        <span if.bind="isPerson">
+          ${firstName} <strong>${lastName}</strong>
+        </span>
+        <span if.bind="!isPerson">
+          <strong>${company}</strong>
+        </span>
+      </a>
+    </template>
+  </group-list>
+
 </section>
 </template>

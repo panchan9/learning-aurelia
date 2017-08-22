@@ -1,0 +1,9 @@
+<template>
+<require from="./file-picker.css" as="scoped"></require>
+<require from="../attributes/file-drop-target"></require>
+
+<input type="file" id="${inputId}" accept="${accept}" multiple.bind="multiple" files.bind="files">
+<label for="${inputId}" file-drop-target.bind="files">
+  <slot></slot>
+</label>
+</template>
